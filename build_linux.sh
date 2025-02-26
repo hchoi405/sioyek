@@ -3,7 +3,7 @@ set -e
 
 # Compile mupdf
 cd mupdf
-make USE_SYSTEM_HARFBUZZ=yes
+make -j USE_SYSTEM_HARFBUZZ=yes
 cd ..
 
 # Compile sioyek
@@ -18,7 +18,7 @@ else
 fi
 
 $QMAKE "CONFIG+=linux_app_image" pdf_viewer_build_config.pro
-make
+make -j
 
 # Copy files in build/ subdirectory
 rm -rf build 2> /dev/null
