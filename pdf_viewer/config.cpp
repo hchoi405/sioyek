@@ -1234,7 +1234,12 @@ void ConfigManager::deserialize_file(std::vector<std::string>* changed_config_na
     while (std::getline(default_file, line)) {
         line_number++;
 
-        if (line.size() == 0 || line[0] == '#') {
+        if (line.empty() || line[0] == '#') {
+            continue;
+        }
+
+        // Handle empty lines including only spaces or tabs or cr or CRLF
+        if (std::all_of(line.begin(), line.end(), [](char c) { return c == ' ' || c == '\t' || c == '\r'; })) {
             continue;
         }
 
